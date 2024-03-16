@@ -2,9 +2,15 @@ package globeonline_buyload;
 
 import static org.junit.Assert.assertTrue;
 
+import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.pages.Acqui.AcquiLanding_Page;
 import com.pages.Buyload.BuyLoadLandingPage;
@@ -116,6 +122,7 @@ public class Buyloadcommonmethods {
 	
 			    BL.moveToElement("BuyLoad_Link");
 				Control.takeScreenshot();
+				Thread.sleep(5000);
 			    BL.jsClick("Link", "BuyLoad_Link");
 			    Thread.sleep(2000);
 			    BL.moveToElement("link_TrackMyOrder");
@@ -126,6 +133,55 @@ public class Buyloadcommonmethods {
 				Control.takeScreenshot();
   }
 	
+	public void NavigateTo_BuyLoad_Mobile() throws Exception {
+		
+		if (BL.isElementExist("MenuBtn", "MenuBtn", 10)) {
+			Control.takeScreenshot();
+    		BL.jsClick("MenuBtn", "MenuBtn");
+        }		
+
+
+		if (BL.isElementExist("QuickLinks_Link_Mobile", "QuickLinks_Link_Mobile", 20)) {
+			//Thread.sleep(3000);
+			((JavascriptExecutor) DriverManager.getDriver()).executeScript("arguments[0].scrollIntoView(true);", BL.get_QuickLinks_Link_Mobile());
+
+			Control.takeScreenshot();
+		    BL.jsClick("Link", "QuickLinks_Link_Mobile");
+		    Thread.sleep(2000);
+			Control.takeScreenshot();
+		    BL.jsClick("Link", "BuyLoad_Link");
+
+		}
+
+			Thread.sleep(5000L);
+			System.out.println(": Reached to BuyLoad landing page");
+			Control.takeScreenshot();
+}
+
+	
+    // Function to check if element is visible
+    private static boolean isElementVisible(WebDriver driver, WebElement element) {
+        try {
+            return element.isDisplayed();
+        } catch (org.openqa.selenium.NoSuchElementException | org.openqa.selenium.StaleElementReferenceException e) {
+            return false;
+        }
+    }
+    
+    // Function to wait for element presence
+    private static WebElement waitForElementPresence(WebDriver driver, By locator, int timeoutInSeconds) {
+        WebDriverWait wait = new WebDriverWait(driver, timeoutInSeconds);
+        return wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+    }
+    
+    // Function to wait for element to be clickable
+    private static WebElement waitForElementClickable(WebDriver driver, By locator, int timeoutInSeconds) {
+        WebDriverWait wait = new WebDriverWait(driver, timeoutInSeconds);
+        return wait.until(ExpectedConditions.elementToBeClickable(locator));
+    }
+
+	
+
 	public void BuyloadValidation() throws Exception {
 		BL.isElementExist("Iload_Text", "Iload_Text", 10);
 		BL.isElementExist("Magkano_text", "Magkano_text", 10);
@@ -142,9 +198,11 @@ public class Buyloadcommonmethods {
 	
 	public void ProcessingwithBuyLoad(String Testdata, String Planvalue) throws Exception {
 		BL.enterText("MobileNumber_Field", "MobileNumber_Field", Testdata);
-		Thread.sleep(20000);
+        WebElement element = waitForElementPresence(DriverManager.getDriver(), By.xpath("//button[normalize-space(text())='₱"+Planvalue+"']"), 30);
+        WebElement elementclick = waitForElementClickable(DriverManager.getDriver(), By.xpath("//button[normalize-space(text())='₱"+Planvalue+"']"), 20);
+		Control.takeScreenshot();
 		DriverManager.getDriver()
-		.findElement(By.xpath("//button[normalize-space(text())='â‚±"+Planvalue+"']")).click();
+		.findElement(By.xpath("//button[normalize-space(text())='₱"+Planvalue+"']")).click();
 		((JavascriptExecutor) DriverManager.getDriver()).executeScript("arguments[0].scrollIntoView(true);", BL.get_NextButton());
 		Thread.sleep(2000);
 		Control.takeScreenshot();

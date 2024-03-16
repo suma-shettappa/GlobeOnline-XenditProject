@@ -18,7 +18,9 @@ public class BuyLoadLandingPage extends BasePage {
 	
 	
 	//Scripting By Lavanya
-	By QuickLinks_Link = By.xpath("//a[normalize-space(text())='Quick Links']");
+	By MenuBtn =  By.xpath("//img[@class='menu']");
+	By QuickLinks_Link_Mobile = By.xpath("(//a[normalize-space(text())='Quick Links'])[2]//following::img[@alt='collapse']");
+	By QuickLinks_Link = By.xpath("//a[normalize-space(text())='Quick Links'] | (//a[normalize-space(text())='Quick Links'])[2]//following::img[@alt='collapse']");
 	By BuyLoad_Link = By.xpath("//a[normalize-space(text())='Buy Load']");
 	By link_TrackMyOrder = By.xpath("//form[contains(@class,'menu-bar-height')] | //a[normalize-space(text())='Track my order']");
     By MobileNumber_Field  = By.xpath("//input[@type='tel']");
@@ -28,7 +30,7 @@ public class BuyLoadLandingPage extends BasePage {
     By GlobePrepaidBuyLoadFlex  =  By.xpath("//p[normalize-space(text())='Globe Prepaid']//following-sibling::div[@class='bLoadFlex']");
     By TMBuyLoadFlex   =  By.xpath("//p[normalize-space(text())='TM']//following-sibling::div[@class='bLoadFlex']");
     By HomePrepaidWifiBuyloadFlex  = By.xpath("//p[normalize-space(text())='Home Prepaid WiFi']//following-sibling::div[@class='bLoadFlex']");
-    By GlobesTermsCondition  = By.xpath("//a[normalize-space(text())='Globeâ€™s Terms and Conditions']");
+    By GlobesTermsCondition  = By.xpath("//a[contains(normalize-space(text()),'s Terms and Conditions')]");
     By Sa_iYoungText   = By.xpath("//p[normalize-space(text())='Sa iyong pag-confirm, sumasang-ayon ka sa']"); 
     By PrivacyPolicy  = By.xpath("//a[normalize-space(text())='Privacy Policy.']");
     
@@ -63,11 +65,19 @@ public class BuyLoadLandingPage extends BasePage {
 	public WebElement get_NextButton() {
 		return DriverManager.getDriver().findElement(NextButton);
 	}
+	public WebElement get_MenuBtn() {
+		return DriverManager.getDriver().findElement(MenuBtn);
+	}
+	public WebElement get_QuickLinks_Link_Mobile() {
+		return DriverManager.getDriver().findElement(QuickLinks_Link_Mobile);
+	}
+
+
 
 
 
 	
-	public boolean isElementExist(String message, String element, int waitTime) {
+	public boolean isElementExist(String message, String element, int waitTime) throws Exception {
 		boolean flag = false;
 
 		switch (element) {
@@ -100,11 +110,29 @@ public class BuyLoadLandingPage extends BasePage {
 			break;
 		case "NextButton":
 			flag = waitForElementVisibility(NextButton, waitTime);
+			break;	
+		case "MenuBtn":
+			flag = waitForElementVisibility(MenuBtn, waitTime);
+			break;	
+		case "QuickLinks_Link_Mobile":
+			flag = waitForElementVisibility(QuickLinks_Link_Mobile, waitTime);
 			break;		
 
 
+
 		}
+		if (flag) {
+			//			ExtentTestManager.logInfo(message + " - exists");
+			System.out.println(message + " - exists");
+            Generic.WriteTestData("Check visibility of locator '"+element+"' in Page ",element,"","'"+element+"' should be visible on the Application","'"+element+"' is visbile on the page","Passed");    
+		} else {
+			//			ExtentTestManager.logFail(message + " - do not exists");
+			System.out.println(message + " - do not exist");
+            Generic.WriteTestData("Check visibility of locator '"+element+"' in Page ",element,"","'"+element+"' should not visible on the Application","'"+element+"' is visbile on the page","Failed");    
+		}
+
 		return flag;
+
 	}
 	
 	
@@ -141,6 +169,14 @@ public class BuyLoadLandingPage extends BasePage {
 			case "NextButton":
 		         jse.executeScript("arguments[0].click();", get_NextButton());		
 		         break;
+			case "MenuBtn":
+		         jse.executeScript("arguments[0].click();", get_MenuBtn());		
+		         break;
+			case "QuickLinks_Link_Mobile":
+		         jse.executeScript("arguments[0].click();", get_QuickLinks_Link_Mobile());		
+		         break;
+
+
 
 			 }
 		} catch (ElementClickInterceptedException e1) {

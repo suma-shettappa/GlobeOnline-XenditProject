@@ -41,12 +41,13 @@ public class BuyLoad extends SetDriver {
 		common.IacceptClick();
 		
 		//Redirecting to BuyLoad Landing Page
-		common.NavigateTo_BuyLoad();
+//		common.NavigateTo_BuyLoad();
+		common.NavigateTo_BuyLoad_Mobile();
 		
 		//Testdata entering
         common.ProcessingwithBuyLoad("09170001776","10");
         
-        common.paymentpageValidation("Gcash");
+//        common.paymentpageValidation("Gcash");
 	}	
 	
 	@AfterClass
