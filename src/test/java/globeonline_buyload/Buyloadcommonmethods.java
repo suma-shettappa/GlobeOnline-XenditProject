@@ -199,7 +199,7 @@ public class Buyloadcommonmethods {
 	public void ProcessingwithBuyLoad(String Testdata, String Planvalue) throws Exception {
 		BL.enterText("MobileNumber_Field", "MobileNumber_Field", Testdata);
         WebElement element = waitForElementPresence(DriverManager.getDriver(), By.xpath("//button[normalize-space(text())='₱"+Planvalue+"']"), 60);
-        WebElement elementclick = waitForElementClickable(DriverManager.getDriver(), By.xpath("//button[normalize-space(text())='₱"+Planvalue+"']"), 20);
+        WebElement elementclick = waitForElementClickable(DriverManager.getDriver(), By.xpath("//button[normalize-space(text())='₱"+Planvalue+"']"), 60);
 		Control.takeScreenshot();
 		DriverManager.getDriver()
 		.findElement(By.xpath("//button[normalize-space(text())='₱"+Planvalue+"']")).click();
