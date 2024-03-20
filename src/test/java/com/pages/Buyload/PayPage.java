@@ -26,6 +26,13 @@ public class PayPage extends BasePage {
 	By totalamount=By.xpath("//p[@class='loadFor']//following::p[3]");
 	By paybutton=By.xpath("//button[@id='bLoadPay']");
 	
+	//Xendit
+	By Xendit_CardNumber=By.xpath("//label[normalize-space(text())='Card number']//preceding::input");
+	By Xendit_ExpiryDate= By.xpath("//input[@id='expiryDate']");
+	By Xendit_CVV=By.xpath("//input[@id='cvv']");
+	By PayBill_Btn=By.xpath("//button[normalize-space(text())='Pay bill']");
+
+	
 	public WebElement get_Gcash()
 	{
 		return DriverManager.getDriver().findElement(Gcash);
@@ -41,6 +48,23 @@ public class PayPage extends BasePage {
 		return DriverManager.getDriver().findElement(paybutton);
 		
 	}
+	public WebElement get_Xendit_CardNumber()
+	{
+		return DriverManager.getDriver().findElement(Xendit_CardNumber);
+	}
+	public WebElement get_Xendit_ExpiryDate()
+	{
+		return DriverManager.getDriver().findElement(Xendit_ExpiryDate);
+	}
+	public WebElement get_Xendit_CVV()
+	{
+		return DriverManager.getDriver().findElement(Xendit_CVV);
+	}
+	public WebElement get_PayBill_Btn()
+	{
+		return DriverManager.getDriver().findElement(PayBill_Btn);
+	}
+
 	public boolean isElementExist(String message, String element, int waitTime) throws Exception {
 		boolean flag = false;
 
@@ -82,6 +106,19 @@ public class PayPage extends BasePage {
 		case "paybutton":
 			flag = waitForElementVisibility(paybutton, waitTime);
 			break;
+		case "Xendit_CardNumber":
+			flag = waitForElementVisibility(Xendit_CardNumber, waitTime);
+			break;
+		case "Xendit_ExpiryDate":
+			flag = waitForElementVisibility(Xendit_ExpiryDate, waitTime);
+			break;
+		case "Xendit_CVV":
+			flag = waitForElementVisibility(Xendit_CVV, waitTime);
+			break;
+		case "PayBill_Btn":
+			flag = waitForElementVisibility(PayBill_Btn, waitTime);
+			break;
+
 		}
 
 		if (flag) {
@@ -130,6 +167,10 @@ public class PayPage extends BasePage {
 			case "paybutton":
 				js.executeScript("arguments[0].click();", get_paybutton());
 				break;
+			case "PayBill_Btn":
+		         js.executeScript("arguments[0].click();", get_PayBill_Btn());		
+		         break;     
+
 			}
 		} catch (ElementClickInterceptedException e1) {
 			System.out.println(type + " : " + eleName + " : " + "Element is not clickable : " + e1.getMessage());

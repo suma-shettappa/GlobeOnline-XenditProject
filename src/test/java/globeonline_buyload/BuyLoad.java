@@ -45,9 +45,12 @@ public class BuyLoad extends SetDriver {
 		common.NavigateTo_BuyLoad_Mobile();
 		
 		//Testdata entering
-        common.ProcessingwithBuyLoad("09170001776","10");
+        common.ProcessingwithBuyLoad("09050415665","20");
         
-//        common.paymentpageValidation("Gcash");
+        common.paymentpageValidation("creditcard");
+        common.clickpaybutton();
+        common.enteringVisaMasterCardDetails("4508750015741019","01 / 39","100");
+        Thread.sleep(60000);
 	}	
 	
 	@AfterClass

@@ -198,7 +198,7 @@ public class Buyloadcommonmethods {
 	
 	public void ProcessingwithBuyLoad(String Testdata, String Planvalue) throws Exception {
 		BL.enterText("MobileNumber_Field", "MobileNumber_Field", Testdata);
-        WebElement element = waitForElementPresence(DriverManager.getDriver(), By.xpath("//button[normalize-space(text())='₱"+Planvalue+"']"), 30);
+        WebElement element = waitForElementPresence(DriverManager.getDriver(), By.xpath("//button[normalize-space(text())='₱"+Planvalue+"']"), 60);
         WebElement elementclick = waitForElementClickable(DriverManager.getDriver(), By.xpath("//button[normalize-space(text())='₱"+Planvalue+"']"), 20);
 		Control.takeScreenshot();
 		DriverManager.getDriver()
@@ -208,6 +208,18 @@ public class Buyloadcommonmethods {
 		Control.takeScreenshot();
 		BL.isElementExist("NextButton", "NextButton", 10);
 		BL.jsClick("NextButton", "NextButton");
+
+	}
+	
+	public void enteringVisaMasterCardDetails(String CardNum,String Expiry,String CVV) throws Exception {
+		PP.isElementExist("Xendit_CardNumber", "Xendit_CardNumber", 20);
+		PP.get_Xendit_CardNumber().sendKeys(CardNum);
+		PP.isElementExist("Xendit_ExpiryDate", "Xendit_ExpiryDate", 20);
+		PP.get_Xendit_ExpiryDate().sendKeys(Expiry);
+		PP.isElementExist("Xendit_CVV", "Xendit_CVV", 20);
+		PP.get_Xendit_CVV().sendKeys(CVV);
+		PP.isElementExist("PayBill_Btn", "PayBill_Btn", 20);
+		PP.js_clickOnElement("PayBill_Btn", "PayBill_Btn", "PayBill_Btn");
 
 	}
 
